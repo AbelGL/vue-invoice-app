@@ -34,6 +34,13 @@
       <h3>There is nothing here</h3>
       <p>Create a new invoice by clicking the New Invoice button and get started!</p>
     </div>
+    <div class="pagination-row">
+      <button class="pagination-go">Previous</button>
+     <span v-for="(item, index) in new Array(10)" :key="index">
+       <button class="pagination-button">{{index + 1}}</button>
+     </span>
+     <button class="pagination-go">Next</button>
+    </div>
   </div>
 </template>
 
@@ -45,7 +52,6 @@ export default {
   data: () =>({
     filterMenu: null,
     filteredInvoice: null,
-    search: null
   }),
   components: {
     Invoice
@@ -96,6 +102,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pagination-row{
+  display:none;
+  margin-top: 20px;
+  .pagination-button{
+     padding: 8px;
+    margin: 2px;
+    border-radius: 3px;
+    font-size: .8em;
+    cursor: pointer;
+    width: 45px;
+    background-color: rgba(51, 214, 160, 0.1);
+}
+
+.pagination-go{
+  padding: 8px;
+    margin: 2px;
+    border-radius: 3px;
+    font-size: .8em;
+    cursor: pointer;
+    width: auto;
+    background-color: rgba(51, 214, 160, 0.1);
+}
+}
 .home{
   color: #fff;
 }
