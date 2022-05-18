@@ -17,7 +17,7 @@
             <li @click="filteredInvoices">Clear Filter</li>
           </ul>
         </div>
-        <div @click="newInvoice" class="button flex">
+        <div v-if="user" @click="newInvoice" class="button flex">
           <div class="inner-button flex">
             <img src="@/assets/icon-plus.svg" alt="">
           </div>
@@ -80,6 +80,9 @@ export default {
         }
         return invoice;
       })
+    },
+    user(){
+      return this.$store.state.user;
     }
   }
 };

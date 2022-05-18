@@ -21,13 +21,13 @@
         </div>
       </div>
       <div class="right flex">
-        <button @click="toggleEditInvoice" class="dark-purple">Edit</button>
-        <button @click="deleteInvoice(currentInvoice.docId)" class="red">Delete</button>
-        <button @click="updateStatusToPaid(currentInvoice.docId)" v-if="currentInvoice.invoicePending" class="green">
+        <button v-if="user" @click="toggleEditInvoice" class="dark-purple">Edit</button>
+        <button v-if="user" @click="deleteInvoice(currentInvoice.docId)" class="red">Delete</button>
+        <button @click="updateStatusToPaid(currentInvoice.docId)" v-if="currentInvoice.invoicePending && user" class="green">
           Mark as Paid
         </button>
         <button
-          v-if="currentInvoice.invoiceDraft || currentInvoice.invoicePaid"
+          v-if="currentInvoice.invoiceDraft || currentInvoice.invoicePaid && user"
           @click="updateStatusToPending(currentInvoice.docId)"
           class="orange"
         >
@@ -134,6 +134,9 @@ export default {
   },
   computed: {
     ...mapState(["currentInvoiceArray", "editInvoice"]),
+    user() {
+      return this.$store.state.user;
+     },
   },
   watch: {
     editInvoice() {

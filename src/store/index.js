@@ -1,8 +1,18 @@
 import { createStore } from 'vuex';
-import db from '../firebase/firebaseInit';
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+import db from "../firebase/firebaseInit"
 
 export default createStore({
   state: {
+    user: null,
+    profileId : null,
+    profileEmail : null,
+    profileFirstName : null,
+    profileLastName : null,
+    profileUserName : null,
+    profileInitials: null,
+    profileAdmin: null,
     invoiceData: [],
     invoiceModal: null,
     modalActive: null,
@@ -52,9 +62,36 @@ export default createStore({
           invoice.invoiceDraft = false;
         }
       })
+    },
+    setProfileAdmin(state, payload) {
+      state.profileAdmin = payload;
+    },
+    setProfileInfo(state, doc) {
+      state.profileId = doc.id;
+      state.profileEmail = doc.data().email;
+      state.profileFirstName = doc.data().firstName;
+      state.profileLastName = doc.data().lastName;
+      state.profileUserName = doc.data().userName;
+    },
+    setProfileInitials(state) {
+      state.profileInitials =
+        state.profileFirstName.match(/(\b\S)?/g).join("") +
+        state.profileLastName.match(/(\b\S)?/g).join("");
+    },
+    updateUser(state, payload) {
+      state.user = payload;
     }
   },
   actions: {
+    async getCurrentUser({ commit }, user) {
+      const dataBase = db.collection('users').doc(firebase.auth().currentUser.uid);
+      const dbResults = await dataBase.get();
+      commit("setProfileInfo", dbResults);
+      commit("setProfileInitials");
+      const token = await user.getIdTokenResult();
+      const admin = await token.claims.admin;
+      commit("setProfileAdmin", admin);
+    },
     async GET_INVOICES({ commit, state }) {
       const getData = db.collection("invoices");
       const results = await getData.get();

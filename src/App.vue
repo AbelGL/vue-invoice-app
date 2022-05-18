@@ -22,6 +22,8 @@ import {mapState, mapActions} from 'vuex';
 import Navigation from '@/components/Navigation.vue';
 import InvoiceModal from '@/components/InvoiceModal.vue';
 import Modal from '@/components/Modal.vue';
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 export default {
   data() {
     return {
@@ -34,6 +36,12 @@ export default {
     Modal
   },
   created() {
+    firebase.auth().onAuthStateChanged(async(user) =>{ 
+      this.$store.commit("updateUser", user);
+      if(user){
+        this.$store.dispatch("getCurrentUser", user);
+      }
+    });
     this.GET_INVOICES();
     this.checkScreen();
     window.addEventListener("resize", this.checkScreen);
@@ -111,6 +119,11 @@ button,
   margin-right: 8px;
   color: #fff;
   width: 140px;
+  background-color: #7c5dfa;
+}
+
+.error{
+  color: #ef4694;
 }
 
 .dark-purple {
