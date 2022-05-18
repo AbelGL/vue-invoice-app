@@ -16,7 +16,7 @@
         <span v-if="invoice.invoicePending">Pending</span>
       </div>
       <div class="icon">
-        <img src="@/assets/icon-arrow-right.svg" alt="" />
+        <img src="@/assets/icon-arrow-right.png" alt="" />
       </div>
     </div>
   </router-link>

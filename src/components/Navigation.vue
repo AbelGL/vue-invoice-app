@@ -7,11 +7,11 @@
       </router-link>
       <router-link v-if="!user" :to="{name: 'Login'}">
         <div class="branding-login flex">
-            <img src="@/assets/user-alt-light.svg" alt="">
+            <img src="@/assets/user.png" alt="">
         </div>
       </router-link>
       <div v-if="user" @click="signOut" class="branding-logout flex">
-        <img src="@/assets/sign-out-alt-regular.svg" alt="">
+        <img src="@/assets/logout.png" alt="">
       </div>
   </header>
 </template>
@@ -72,7 +72,6 @@ header{
         img{
             width: auto;
             height: 30px;
-            filter: invert(77%);
         }
     }
 
@@ -89,7 +88,6 @@ header{
         img{
             width: auto;
             height: 30px;
-            filter: invert(77%);
         }
     }
 

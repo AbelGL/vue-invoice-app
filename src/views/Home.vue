@@ -9,7 +9,7 @@
       <div class="right flex">
         <div @click="toggleFilterMenu" class="filter flex">
           <span>Filter by status <span v-if="filteredInvoice">: {{ filteredInvoice }}</span></span>
-          <img src="@/assets/icon-arrow-down.svg" alt="">
+          <img src="@/assets/icon-arrow-down.png" alt="">
           <ul v-show="filterMenu" class="filter-menu">
             <li @click="filteredInvoices">Draft</li>
             <li @click="filteredInvoices">Pending</li>
@@ -19,7 +19,7 @@
         </div>
         <div v-if="user" @click="newInvoice" class="button flex">
           <div class="inner-button flex">
-            <img src="@/assets/icon-plus.svg" alt="">
+            <img src="@/assets/icon-plus.png" alt="">
           </div>
           <span>New Invoice</span>
         </div>
@@ -30,7 +30,7 @@
       <Invoice v-for="(invoice, index) in filteredData" :invoice="invoice" :key="index"/>
     </div>
     <div v-else class="empty flex flex-column">
-      <img src="@/assets/illustration-empty.svg" alt="">
+      <img src="@/assets/illustration-empty.png" alt="">
       <h3>There is nothing here</h3>
       <p>Create a new invoice by clicking the New Invoice button and get started!</p>
     </div>
@@ -45,6 +45,7 @@ export default {
   data: () =>({
     filterMenu: null,
     filteredInvoice: null,
+    search: null
   }),
   components: {
     Invoice
@@ -63,7 +64,13 @@ export default {
         return;
       }
       this.filteredInvoice  = e.target.innerText;
-    }
+    },
+    filteredSearch(){
+      this.filtered = this.invoiceData.filter((invoice) =>{
+        console.log(invoice.clientName.match(this.search))
+        return invoice.clientName.match(this.search);
+      })
+    },
   },
   computed: {
     ...mapState(['invoiceData']),
@@ -72,14 +79,14 @@ export default {
         if(this.filteredInvoice === "Draft"){
           return invoice.invoiceDraft === true;
         }
-        if(this.filteredInvoice === "Pending"){
+        else if(this.filteredInvoice === "Pending"){
           return invoice.invoicePending === true;
         }
-        if(this.filteredInvoice === "Paid"){
+        else if(this.filteredInvoice === "Paid"){
           return invoice.invoicePaid === true;
         }
         return invoice;
-      })
+      });
     },
     user(){
       return this.$store.state.user;

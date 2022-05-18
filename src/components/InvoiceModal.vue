@@ -96,12 +96,12 @@
               <td class="qty"><input type="text" v-model="item.qty" /></td>
               <td class="price"><input type="text" v-model="item.price" /></td>
               <td class="total flex">${{ (item.total = item.qty * item.price) }}</td>
-              <img class="delete-item" @click="deleteInvoiceItem(item.id)" src="@/assets/icon-delete.svg" alt="" />
+              <img class="delete-item" @click="deleteInvoiceItem(item.id)" src="@/assets/icon-delete.png" alt="" />
             </tr>
           </table>
 
           <div @click="addNewInvoiceItem" class="flex button">
-            <img src="@/assets/icon-plus.svg" alt="" />
+            <img src="@/assets/icon-plus.png" alt="" />
             Add New Item
           </div>
         </div>

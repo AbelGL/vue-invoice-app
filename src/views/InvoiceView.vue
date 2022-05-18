@@ -1,7 +1,7 @@
 <template>
   <div v-if="currentInvoice" class="invoice-view container">
     <router-link class="nav-link flex" :to="{ name: 'Home' }">
-      <img src="@/assets/icon-arrow-left.svg" alt="" /> Go Back
+      <img src="@/assets/icon-arrow-left.png" alt="" /> Go Back
     </router-link>
     <!-- Header -->
     <div class="header flex">
